@@ -16,7 +16,8 @@ Implemented = 🟢 not Implemented = 🔴
 - one type
 - mouse control to fly the plane
 - simple physics; gravity, lift, acceleration and drag
-- simple gun 
+- simple gun with ammo count
+- simple ui with speed, and coordinates
 
 ### 3: Enemy Planes
 - one type; a bomber
@@ -35,6 +36,8 @@ Implemented = 🟢 not Implemented = 🔴
 - more advanced/realistic physics; more accurate lift and drag calculations
 - missiles with locking and tracking
 - accurate modelling of control surfaces
+- morein ui with fuel and bullet amount etc.
+- fuel amount
 
 ### 3: Enemy Planes
 - another type; escort planes
