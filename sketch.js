@@ -5,21 +5,24 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-
+let freeCam;
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
 
-  rows = TERRAIN_Y / SUBDIVISIONS;
+  rows = TERRAIN_Z / SUBDIVISIONS;
   cols = TERRAIN_X / SUBDIVISIONS;
   seed = random(1, 100);
   terrainHeight = generateHeight(cols, rows, seed);
+  freeCam = new MovableCam(0, 0, 0);
 }
 
 function draw() {
   background(220);
-  circle(mouseX - width/2, mouseY - height/2, 100);
-  showTerrain();
+
+  let origin = terrainOrigin(freeCam);
+  showTerrain(origin);
+  freeCam.update();
 }
 
 function keyPressed() { // seed randomizer and gets new heights
@@ -27,4 +30,7 @@ function keyPressed() { // seed randomizer and gets new heights
     seed = random(1, 100);
     terrainHeight = generateHeight(cols, rows, seed);
   }
+}
+function doubleClicked() { // locks cursor with double click
+  requestPointerLock();
 }

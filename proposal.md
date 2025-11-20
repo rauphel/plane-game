@@ -10,6 +10,7 @@ Implemented = 🟢 not Implemented = 🔴
 ### 1: Terrain
 - procedually genereated terrain 🔴
 - Airfield 🔴
+    -airfield collision
 - render distance 🔴
 
 ### 2: Aircraft
@@ -17,7 +18,6 @@ Implemented = 🟢 not Implemented = 🔴
 - mouse control to fly the plane
 - simple physics; gravity, lift, acceleration and drag
 - simple gun with ammo count
-- simple ui with speed, and coordinates
 
 ### 3: Enemy Planes
 - one type; a bomber
@@ -31,12 +31,14 @@ Implemented = 🟢 not Implemented = 🔴
 - different biomes
 - biomes/altitude affecting aircraft performance
 - clouds
+- terrain collision
 
 ### 2: Aircraft
 - more advanced/realistic physics; more accurate lift and drag calculations
 - missiles with locking and tracking
 - accurate modelling of control surfaces
-- morein ui with fuel and bullet amount etc.
+- simple ui with speed, and coordinates
+- more in ui with fuel and bullet amount etc.
 - fuel amount
 
 ### 3: Enemy Planes
