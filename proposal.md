@@ -10,13 +10,13 @@ Implemented = 🟢 not Implemented = 🔴
 ### 1: Terrain
 - procedually genereated terrain 🔴
 - Airfield 🔴
-    -airfield collision
-- render distance 🔴
+    - airfield collision
+- render distance 🟢
 
 ### 2: Aircraft
 - one type
 - mouse control to fly the plane
-- simple physics; gravity, lift, acceleration and drag
+- simple physics; more space ship than plane
 - simple gun with ammo count
 
 ### 3: Enemy Planes

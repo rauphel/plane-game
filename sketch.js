@@ -6,6 +6,7 @@
 // - describe what you did to take this project "above and beyond"
 
 let freeCam;
+let origin;
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
@@ -13,14 +14,16 @@ function setup() {
   rows = TERRAIN_Z / SUBDIVISIONS;
   cols = TERRAIN_X / SUBDIVISIONS;
   seed = random(1, 100);
-  terrainHeight = generateHeight(cols, rows, seed);
   freeCam = new MovableCam(0, 0, 0);
+  origin = terrainOrigin(freeCam);
+  terrainHeight = generateHeight(cols, rows, seed, freeCam);
 }
 
 function draw() {
   background(220);
 
-  let origin = terrainOrigin(freeCam);
+  origin = terrainOrigin(freeCam);
+  terrainHeight = generateHeight(cols, rows, seed, origin);
   showTerrain(origin);
   freeCam.update();
 }

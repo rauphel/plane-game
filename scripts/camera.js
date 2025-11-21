@@ -13,7 +13,7 @@ class MovableCam {
     this.MAX_PITCH = 179;
 
     this.sensitivity = 0.1; //cam sensitivity and speed
-    this.speed = 5;
+    this.speed = 10;
   }
 
   update() {
