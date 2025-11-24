@@ -17,13 +17,12 @@ Implemented = 🟢 not Implemented = 🔴
 - one type
 - mouse control to fly the plane
 - simple physics; more space ship than plane
-- simple gun with ammo count
+- simple gun with ammo count: hitscan
 
-### 3: Enemy Planes
-- one type; a bomber
-- simple flight patterns for evasion
-- simple ai deciding flight patterns
-- simple damage model/health
+### 3: Enemy Base
+- Stationary air base
+- 
+
 
 
 ## Nice to Have
@@ -42,7 +41,14 @@ Implemented = 🟢 not Implemented = 🔴
 - more in ui with fuel and bullet amount etc.
 - fuel amount
 
-### 3: Enemy Planes
+### 3: Enemy Base
+
+### 4: Enemy Plane
+- one type; a bomber
+- simple flight patterns for evasion
+- simple ai deciding flight patterns
+- simple damage model/health
+#### More Improvements
 - another type; escort planes
 - ai making its own flight pattern decisions
 - able to fight back

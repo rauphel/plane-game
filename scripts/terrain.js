@@ -63,15 +63,18 @@ function showPlane(originVector) { // plane for tests
   push();
   translate(originVector.x * SUBDIVISIONS, 0, originVector.z * SUBDIVISIONS);
   rotateX(PI/2);
-  plane(TERRAIN_X, TERRAIN_Y);
+  fill('blue');
+  plane(TERRAIN_X, TERRAIN_Z);
   pop();
 }
 
 function terrainUpdate() {
   origin = terrainOrigin(freeCam);
-  if (Math.abs(origin.x) < TERRAIN_X && Math.abs(origin.z) < TERRAIN_Z) {
+  if (Math.abs(origin.x) * SUBDIVISIONS < TERRAIN_X && Math.abs(origin.z) * SUBDIVISIONS < TERRAIN_Z) {
     terrainHeight = generateHeight(cols, rows, seed, origin);
     showTerrain(origin);
   }
-
+  if ((Math.abs(origin.x) * SUBDIVISIONS) / 2 < TERRAIN_X && (Math.abs(origin.z) * SUBDIVISIONS) / 2 < TERRAIN_Z){
+    showPlane(origin);
+  }
 }
