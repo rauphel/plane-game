@@ -22,9 +22,8 @@ function setup() {
 function draw() {
   background(220);
 
-  origin = terrainOrigin(freeCam);
-  terrainHeight = generateHeight(cols, rows, seed, origin);
-  showTerrain(origin);
+
+  terrainUpdate();
   freeCam.update();
 }
 

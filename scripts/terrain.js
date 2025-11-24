@@ -2,8 +2,8 @@
 
 // initializes grid for triangles width and length and its SUBDIVISIONS
 const SUBDIVISIONS = 50;
-const TERRAIN_X = 2000;
-const TERRAIN_Z = 2000;
+const TERRAIN_X = 1000;
+const TERRAIN_Z = 1000;
 const MIN_HEIGHT = -100;
 const MAX_HEIGHT = 200;
 const OFFSET = 0.2;
@@ -57,4 +57,21 @@ function terrainOrigin(player) {
   originVector = createVector(_x, 0, _z);
 
   return originVector;
+}
+
+function showPlane(originVector) { // plane for tests 
+  push();
+  translate(originVector.x * SUBDIVISIONS, 0, originVector.z * SUBDIVISIONS);
+  rotateX(PI/2);
+  plane(TERRAIN_X, TERRAIN_Y);
+  pop();
+}
+
+function terrainUpdate() {
+  origin = terrainOrigin(freeCam);
+  if (Math.abs(origin.x) < TERRAIN_X && Math.abs(origin.z) < TERRAIN_Z) {
+    terrainHeight = generateHeight(cols, rows, seed, origin);
+    showTerrain(origin);
+  }
+
 }

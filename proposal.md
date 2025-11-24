@@ -8,7 +8,7 @@ To win is to take down all enemies before they reach your airdield
 ## Needs to Have
 Implemented = 🟢 not Implemented = 🔴
 ### 1: Terrain
-- procedually genereated terrain 🔴
+- an ocean surrounding the airfield
 - Airfield 🔴
     - airfield collision
 - render distance 🟢
@@ -28,6 +28,7 @@ Implemented = 🟢 not Implemented = 🔴
 
 ## Nice to Have
 ### 1: Terrain
+- procedually genereated terrain 🔴
 - different biomes
 - biomes/altitude affecting aircraft performance
 - clouds
