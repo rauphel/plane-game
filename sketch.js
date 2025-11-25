@@ -11,12 +11,12 @@ let origin;
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
 
-  rows = TERRAIN_Z / SUBDIVISIONS;
-  cols = TERRAIN_X / SUBDIVISIONS;
+  rows = RENDER_DISTANCE / SUBDIVISIONS;
+  cols = RENDER_DISTANCE / SUBDIVISIONS;
   seed = random(1, 100);
   freeCam = new MovableCam(0, 0, 0);
   origin = terrainOrigin(freeCam);
-  terrainHeight = generateHeight(cols, rows, seed, freeCam);
+  terrainHeight = generateHeight(cols, rows, seed, origin);
 }
 
 function draw() {

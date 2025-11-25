@@ -2,8 +2,9 @@
 
 // initializes grid for triangles width and length and its SUBDIVISIONS
 const SUBDIVISIONS = 50;
-const TERRAIN_X = 1000;
-const TERRAIN_Z = 1000;
+const TERRAIN_X = 5000;
+const TERRAIN_Z = 5000;
+const RENDER_DISTANCE = 1000;
 const MIN_HEIGHT = -100;
 const MAX_HEIGHT = 200;
 const OFFSET = 0.2;
@@ -20,10 +21,10 @@ function generateHeight(cols, rows, seed, originVector) { // generates a 2d grid
   let zOffset = OFFSET * originVector.z;
 
   noiseSeed(seed);  // sets the seed
-  for (let z = 0; z < rows; z++) {
+  for (let z = 0; z < TERRAIN_Z/SUBDIVISIONS; z++) {
     heights.push([]);
     let xOffset = OFFSET * originVector.x;
-    for (let x = 0; x < cols; x++) { //pushes noise value mappes to a max of 100 and min of -100 and offset is distance between each noise valie
+    for (let x = 0; x < TERRAIN_X/SUBDIVISIONS; x++) { //pushes noise value mappes to a max of 100 and min of -100 and offset is distance between each noise valie
       heights[z].push(map(noise(xOffset, zOffset), 0, 1, MIN_HEIGHT, MAX_HEIGHT));
       xOffset += OFFSET;
     }
@@ -36,14 +37,14 @@ function showTerrain(originVector) {
   push(); // isolates translations
   fill('gray');
   strokeWeight(0.5);
-  translate(-TERRAIN_X/2, 0, -TERRAIN_Z/2); //transforms to be a plane on the x and z axis
+  translate(-RENDER_DISTANCE/2, 0, -RENDER_DISTANCE/2); //transforms to be a plane on the x and z axis
   rotateX(PI/2);
 
   for (let z = 0; z < rows - 1; z++) { // generates a triangles strip to display terrain using generated heights in 2d array
     beginShape(TRIANGLE_STRIP);
     for (let x = 0; x < cols; x++) {
-      vertex((x + originVector.x) * SUBDIVISIONS, (z + originVector.z) * SUBDIVISIONS, terrainHeight[z][x]);
-      vertex((x + originVector.x) * SUBDIVISIONS, (z + 1 + originVector.z) * SUBDIVISIONS, terrainHeight[z + 1][x]);
+      vertex((x + originVector.x) * SUBDIVISIONS, (z + originVector.z) * SUBDIVISIONS, terrainHeight[z + originVector.z][x + originVector.x]);
+      vertex((x + originVector.x) * SUBDIVISIONS, (z + 1 + originVector.z) * SUBDIVISIONS, terrainHeight[z + 1 + originVector.z][x + originVector.x]);
     }
     endShape();
   }
@@ -70,11 +71,16 @@ function showPlane(originVector) { // plane for tests
 
 function terrainUpdate() {
   origin = terrainOrigin(freeCam);
-  if (Math.abs(origin.x) * SUBDIVISIONS < TERRAIN_X && Math.abs(origin.z) * SUBDIVISIONS < TERRAIN_Z) {
-    terrainHeight = generateHeight(cols, rows, seed, origin);
-    showTerrain(origin);
-  }
-  if ((Math.abs(origin.x) * SUBDIVISIONS) / 2 < TERRAIN_X && (Math.abs(origin.z) * SUBDIVISIONS) / 2 < TERRAIN_Z){
-    showPlane(origin);
-  }
+  // origin = createVector(0,0,0);
+  // if (Math.abs(origin.x) * SUBDIVISIONS < TERRAIN_X && Math.abs(origin.z) * SUBDIVISIONS < TERRAIN_Z) {
+  //   terrainHeight = generateHeight(cols, rows, seed, origin);
+  //   showTerrain(origin);
+  // }
+  // if (Math.abs(origin.x) * SUBDIVISIONS / 2 < TERRAIN_X && Math.abs(origin.z) * SUBDIVISIONS / 2 < TERRAIN_Z){
+  //   showPlane(origin);
+  // }
+
+  // terrainHeight = generateHeight(cols, rows, seed, origin);
+  showTerrain(origin);
+
 }
