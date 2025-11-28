@@ -39,18 +39,23 @@ function showTerrain(originVector) {
   strokeWeight(0.5);
   translate(-RENDER_DISTANCE/2, 0, -RENDER_DISTANCE/2); //transforms to be a plane on the x and z axis
   rotateX(PI/2);
-
+  console.log(originVector.toString());
   for (let z = 0; z < rows - 1; z++) { // generates a triangles strip to display terrain using generated heights in 2d array
     beginShape(TRIANGLE_STRIP);
     for (let x = 0; x < cols; x++) {
-      if (Math.abs(originVector.x) < 40 && Math.abs(originVector.z < 40)) {
+      if (Math.abs(originVector.x) < 20 && Math.abs(originVector.z < 20)) {
         vertex((x + originVector.x) * SUBDIVISIONS, (z + originVector.z) * SUBDIVISIONS, terrainHeight[50 + z + originVector.z][50 + x + originVector.x]);
         vertex((x + originVector.x) * SUBDIVISIONS, (z + 1 + originVector.z) * SUBDIVISIONS, terrainHeight[50 + z + 1 + originVector.z][50 + x + originVector.x]);
 
       }
+      else {
+        vertex((x + originVector.x) * SUBDIVISIONS, (z + originVector.z) * SUBDIVISIONS, 0);
+        vertex((x + originVector.x) * SUBDIVISIONS, (z + 1 + originVector.z) * SUBDIVISIONS, 0);
+      }
     }
     endShape();
   }
+
   pop();
 }
 

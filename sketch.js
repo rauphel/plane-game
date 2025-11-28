@@ -25,6 +25,7 @@ function draw() {
 
   terrainUpdate();
   freeCam.update();
+
 }
 
 function keyPressed() { // seed randomizer and gets new heights
