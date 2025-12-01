@@ -39,7 +39,7 @@ function showTerrain(originVector) {
   strokeWeight(0.5);
   translate(-RENDER_DISTANCE/2, 0, -RENDER_DISTANCE/2); //transforms to be a plane on the x and z axis
   rotateX(PI/2);
-  console.log(originVector.toString());
+  // console.log(originVector.toString());
   for (let z = 0; z < rows - 1; z++) { // generates a triangles strip to display terrain using generated heights in 2d array
     beginShape(TRIANGLE_STRIP);
     for (let x = 0; x < cols; x++) {
@@ -52,6 +52,27 @@ function showTerrain(originVector) {
         vertex((x + originVector.x) * SUBDIVISIONS, (z + originVector.z) * SUBDIVISIONS, 0);
         vertex((x + originVector.x) * SUBDIVISIONS, (z + 1 + originVector.z) * SUBDIVISIONS, 0);
       }
+    }
+    endShape();
+  }
+
+  pop();
+}
+
+
+// needs work on
+function _showTerrain(originVector) {
+  push();
+  fill('gray');
+  strokeWeight(0.5);
+  translate(-RENDER_DISTANCE/2, 0, -RENDER_DISTANCE/2); //transforms to be a plane on the x and z axis
+  rotateX(PI/2);
+
+  for (let z = originVector.z; z < rows + originVector.z && z < terrainHeight.length && z >= 0; z++) { // generates a triangles strip to display terrain using generated heights in 2d array
+    beginShape(TRIANGLE_STRIP);
+    for (let x = originVector.x; x < cols + originVector.x && x < terrainHeight.length && x >= 0; x++) {
+      vertex(x * SUBDIVISIONS, z * SUBDIVISIONS, terrainHeight[z][x]);
+      vertex(x * SUBDIVISIONS, (z + 1) * SUBDIVISIONS, terrainHeight[z + 1][x]);
     }
     endShape();
   }
@@ -77,8 +98,8 @@ function showPlane(originVector) { // plane for tests
   pop();
 }
 
-function terrainUpdate() {
-  origin = terrainOrigin(freeCam);
+function terrainUpdate(player) {
+  origin = terrainOrigin(player);
   // origin = createVector(0,0,0);
   // if (Math.abs(origin.x) * SUBDIVISIONS < TERRAIN_X && Math.abs(origin.z) * SUBDIVISIONS < TERRAIN_Z) {
   //   terrainHeight = generateHeight(cols, rows, seed, origin);
@@ -90,5 +111,5 @@ function terrainUpdate() {
 
   // terrainHeight = generateHeight(cols, rows, seed, origin);
   showTerrain(origin);
-
+  // _showTerrain(origin);
 }
