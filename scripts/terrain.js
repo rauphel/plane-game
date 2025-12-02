@@ -106,10 +106,10 @@ function terrainUpdate(player) {
   //   showTerrain(origin);
   // }
   // if (Math.abs(origin.x) * SUBDIVISIONS / 2 < TERRAIN_X && Math.abs(origin.z) * SUBDIVISIONS / 2 < TERRAIN_Z){
-  //   showPlane(origin);
+  showPlane(origin);
   // }
 
   // terrainHeight = generateHeight(cols, rows, seed, origin);
-  showTerrain(origin);
+  // showTerrain(origin);
   // _showTerrain(origin);
 }

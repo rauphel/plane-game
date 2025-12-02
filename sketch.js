@@ -15,7 +15,7 @@ function setup() {
   cols = RENDER_DISTANCE / SUBDIVISIONS;
   seed = random(1, 100);
   // freeCam = new MovableCam(0, 0, 0);
-  craft = new aircraft(0, 0, 0);
+  craft = new aircraft(0, -10, 0);
   origin = terrainOrigin(craft);
   terrainHeight = generateHeight(cols, rows, seed, origin);
 }

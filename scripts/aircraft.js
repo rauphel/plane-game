@@ -19,10 +19,14 @@ class aircraft {
     this.sensitivity = 0.1;
   }
   update() {
+    this.display();
     this.look();
   }
   display() {
+    push();
 
+    cone(30, 50, 5);
+    pop();
   }
 
   physics() {
@@ -31,9 +35,9 @@ class aircraft {
   move() {
 
   }
-  look() {
+  look() { //instead of locking plane to the camera, try locking cam to plane
     this.rY -= movedX * this.sensitivity;
-    this.rX += movedY * this.sensitivity;
+    this.rX -= movedY * this.sensitivity;
 
     this.rX = this.rX % 360; // constraints cam rotation based on x axis
     this.rY = this.rY % 360;  // keeps cam rotation on y-axis from 1-360 degrees
