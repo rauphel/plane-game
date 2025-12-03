@@ -10,12 +10,12 @@ let origin;
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
-
+  debugMode();
   rows = RENDER_DISTANCE / SUBDIVISIONS;
   cols = RENDER_DISTANCE / SUBDIVISIONS;
   seed = random(1, 100);
   freeCam = new MovableCam(0, 0, 0);
-  craft = new aircraft(0, -10, 0);
+  craft = new aircraft(0, -20, 50);
   origin = terrainOrigin(craft);
   terrainHeight = generateHeight(cols, rows, seed, origin);
 }

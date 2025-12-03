@@ -7,7 +7,7 @@ class MovableCam {
     this.cam.setPosition(this.x, this.y, this.z);
 
     this.rY = 0;  // rotation based on the y-axis
-    this.rX = -90; // rotation based on the x-axis
+    this.rX = 0; // rotation based on the x-axis
     this.camVector; //vector for where it's looking
     this.MIN_PITCH = 1;
     this.MAX_PITCH = 179;

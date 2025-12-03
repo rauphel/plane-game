@@ -3,6 +3,8 @@ class aircraft {
     this.x = x;
     this.y = y;
     this.z = z;
+
+    this.craftPosition = createVector(x, y, z);
     
     this.speed;
     this.direction = createVector(0,0,1);
@@ -11,7 +13,7 @@ class aircraft {
     
 
     this.cam = createCamera(); // creates cam and sets its positions
-    this.cam.setPosition(this.x, this.y, this.z);
+    this.cam.setPosition(this.craftPosition.x, this.craftPosition.y - 25, this.craftPosition.z - 100);
     this.rY = 0;  // rotation based on the y-axis
     this.rX = -90; // rotation based on the x-axis
     this.camVector; //vector for where it's looking
@@ -24,8 +26,11 @@ class aircraft {
   }
   display() {
     push();
-    sphere();
-    translate(0, 0, 50);
+    translate(this.cam.eyeX, this.cam.eyeY, this.cam.eyeZ);
+    sphere(5);
+    pop();
+    push();
+    rotateX(PI/2);
     cone(30, 50, 5);
     pop();
   }
