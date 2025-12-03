@@ -24,7 +24,8 @@ class aircraft {
   }
   display() {
     push();
-
+    sphere();
+    translate(0, 0, 50);
     cone(30, 50, 5);
     pop();
   }
@@ -44,6 +45,7 @@ class aircraft {
     // creates a vector from the origin to the angles stated the first being theta(x axis rotation) and the second being phi(y-axis rotation) and angles taken from mouse movement
     this.camVector = p5.Vector.fromAngles(radians(this.rX), radians(this.rY)); 
     //translates the vector to the cameras coordinates and makes the camera look at that point
-    this.cam.lookAt(this.camVector.x + this.cam.eyeX, this.camVector.y + this.cam.eyeY, this.camVector.z + this.cam.eyeZ);
+    
+    // this.cam.lookAt(this.camVector.x + this.cam.eyeX, this.camVector.y + this.cam.eyeY, this.camVector.z + this.cam.eyeZ);
   }
 }

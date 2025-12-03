@@ -14,7 +14,7 @@ function setup() {
   rows = RENDER_DISTANCE / SUBDIVISIONS;
   cols = RENDER_DISTANCE / SUBDIVISIONS;
   seed = random(1, 100);
-  // freeCam = new MovableCam(0, 0, 0);
+  freeCam = new MovableCam(0, 0, 0);
   craft = new aircraft(0, -10, 0);
   origin = terrainOrigin(craft);
   terrainHeight = generateHeight(cols, rows, seed, origin);
@@ -25,7 +25,7 @@ function draw() {
 
 
   terrainUpdate(craft);
-  // freeCam.update();
+  freeCam.update();
   craft.update();
 
 }
@@ -34,6 +34,9 @@ function keyPressed() { // seed randomizer and gets new heights
   if (key === "r") {
     seed = random(1, 100);
     terrainHeight = generateHeight(cols, rows, seed);
+  }
+  if (key === "v") {
+    setCamera(freeCam.cam);
   }
 }
 function doubleClicked() { // locks cursor with double click
