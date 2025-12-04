@@ -64,5 +64,9 @@ class MovableCam {
     this.x = this.cam.eyeX;
     this.y = this.cam.eyeY;
     this.z = this.cam.eyeZ;
+    push();
+    translate(this.x,this.y,this.z);
+    sphere(5);
+    pop();
   }
 }

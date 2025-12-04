@@ -38,6 +38,9 @@ function keyPressed() { // seed randomizer and gets new heights
   if (key === "v") {
     setCamera(freeCam.cam);
   }
+  if (key === "b") {
+    setCamera(craft.cam);
+  }
 }
 function doubleClicked() { // locks cursor with double click
   requestPointerLock();

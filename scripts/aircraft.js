@@ -1,19 +1,17 @@
 class aircraft {
   constructor(x, y, z) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
 
     this.craftPosition = createVector(x, y, z);
     
     this.speed;
-    this.direction = createVector(0,0,1);
+    this.direction = createVector(0, -20, 100);
     
     this.mass;
     
 
     this.cam = createCamera(); // creates cam and sets its positions
-    this.cam.setPosition(this.craftPosition.x, this.craftPosition.y - 25, this.craftPosition.z - 100);
+    this.cam.setPosition(this.craftPosition.x, this.craftPosition.y - 50, this.craftPosition.z - 200);
+    this.cam.lookAt(this.direction.x, this.direction.y, this.direction.z);
     this.rY = 0;  // rotation based on the y-axis
     this.rX = -90; // rotation based on the x-axis
     this.camVector; //vector for where it's looking
