@@ -1,35 +1,39 @@
 class aircraft {
   constructor(x, y, z) {
 
-    this.craftPosition = createVector(x, y, z);
+    this.position = createVector(x, y, z);
+    this.velocity = createVector(0, 0, 0);
+    this.acceleration = createVector(0, 0, 0);
     
-    this.speed;
-    this.direction = createVector(0, -20, 100);
+    this.direction = createVector(0, 0, 10);
     
-    this.mass;
+    this.mass = 10;
     
 
     this.cam = createCamera(); // creates cam and sets its positions
-    this.cam.setPosition(this.craftPosition.x, this.craftPosition.y - 50, this.craftPosition.z - 200);
-    this.cam.lookAt(this.direction.x, this.direction.y, this.direction.z);
-    this.rY = 0;  // rotation based on the y-axis
-    this.rX = -90; // rotation based on the x-axis
+    this.cam.setPosition(this.position.x, this.position.y - 50, this.position.z - 200);
+    this.cam.lookAt(this.direction.x, this.direction.y - 25, this.direction.z);
+    this.rY = 90;  // rotation based on the y-axis
+    this.rX = 0; // rotation based on the x-axis
     this.camVector; //vector for where it's looking
 
     this.sensitivity = 0.1;
   }
   update() {
-    this.display();
     this.look();
+    this.move();
+    this.display();
   }
   display() {
+    this.cam.setPosition(this.position.x, this.position.y - 50, this.position.z - 200);
     push();
     translate(this.cam.eyeX, this.cam.eyeY, this.cam.eyeZ);
     sphere(5);
     pop();
     push();
+    translate(this.position);
     rotateX(PI/2);
-    cone(30, 50, 5);
+    cone(30, 60, 5);
     pop();
   }
 
@@ -37,8 +41,14 @@ class aircraft {
 
   }
   move() {
-
+    let heading = this.camVector.copy();
+    heading.setMag(0.2);
+    this.acceleration = heading;
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(5);
+    this.position.add(this.velocity);
   }
+  
   look() { //instead of locking plane to the camera, try locking cam to plane
     this.rY -= movedX * this.sensitivity;
     this.rX -= movedY * this.sensitivity;
