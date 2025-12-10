@@ -27,14 +27,17 @@ class aircraft {
   display() {
     this.cam.setPosition(this.position.x, this.position.y - 50, this.position.z - 200);
     // this.cam.lookAt(this.direction.x, this.direction.y - 25, this.direction.z);
-    push();
-    translate(this.cam.eyeX, this.cam.eyeY, this.cam.eyeZ);
-    sphere(5);
-    pop();
+    // push();
+    // translate(this.cam.eyeX, this.cam.eyeY, this.cam.eyeZ);
+    // sphere(5);
+    // pop();
     push();
     translate(this.position);
+    push();
+
     rotateX(PI/2);
     cone(30, 60, 5);
+    pop();
     pop();
   }
 
@@ -60,6 +63,6 @@ class aircraft {
     this.camVector = p5.Vector.fromAngles(radians(this.rX), radians(this.rY)); 
     //translates the vector to the cameras coordinates and makes the camera look at that point
     
-    this.cam.lookAt(this.camVector.x + this.cam.eyeX, this.camVector.y + this.cam.eyeY, this.camVector.z + this.cam.eyeZ);
+    // this.cam.lookAt(this.camVector.x + this.cam.eyeX, this.camVector.y + this.cam.eyeY, this.camVector.z + this.cam.eyeZ);
   }
 }
