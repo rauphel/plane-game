@@ -44,4 +44,5 @@ function keyPressed() { // seed randomizer and gets new heights
 }
 function doubleClicked() { // locks cursor with double click
   requestPointerLock();
+  // orbitControl();
 }
