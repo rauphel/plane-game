@@ -27,17 +27,17 @@ class aircraft {
   display() {
     this.cam.setPosition(this.position.x, this.position.y - 50, this.position.z - 200);
 
-    // this.cam.lookAt(this.direction.x, this.direction.y - 25, this.direction.z);
+    // this.cam.lookAt(this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.Z + this.direction.z);
     // push();
     // translate(this.cam.eyeX, this.cam.eyeY, this.cam.eyeZ);
     // sphere(5);
     // pop();
     push();
     
+    line(this.position.x, this.position.y, this.position.z, this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
     translate(this.position);
-    line(this.position.x, this.position.y, this.position.z, this.direction.x, this.direction.y, this.direction.z);
-    rotateX(this.position.angleBetween(this.direction));
-    rotateY(this.position.angleBetween(this.direction));
+    // rotateX(this.position.angleBetween(this.direction));
+    // rotateY(this.position.angleBetween(this.direction));
     push();
     sphere(5);
     rotateX(PI/2);
@@ -66,7 +66,7 @@ class aircraft {
     this.rY = this.rY % 360;  // keeps cam rotation on y-axis from 1-360 degrees
     // creates a vector from the origin to the angles stated the first being theta(x axis rotation) and the second being phi(y-axis rotation) and angles taken from mouse movement
     this.direction = p5.Vector.fromAngles(radians(this.rX), radians(this.rY));
-    this.direction.setMag(1);
+    this.direction.setMag(10);
     // this.direction = createVector(this.position.x + this.camVector.x, this.position.y + this.camVector.y, this.position.z + this.camVector.z);
     // this.direction.add(this.camVector);
     //translates the vector to the cameras coordinates and makes the camera look at that point
