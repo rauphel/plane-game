@@ -21,17 +21,19 @@ class aircraft {
   }
   update() {
     this.look();
+    this.setCam();
     this.move();
     this.display();
   }
   display() {
-    this.cam.setPosition(this.position.x, this.position.y - 50, this.position.z - 200);
-
-    // this.cam.lookAt(this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.Z + this.direction.z);
-    // push();
-    // translate(this.cam.eyeX, this.cam.eyeY, this.cam.eyeZ);
-    // sphere(5);
-    // pop();
+    push();
+    translate(this.cam.eyeX, this.cam.eyeY, this.cam.eyeZ);
+    sphere(5);
+    pop();
+    push();
+    translate(this.cam.centerX, this.cam.centerY, this.cam.centerZ);
+    sphere(5);
+    pop();
     push();
     
     line(this.position.x, this.position.y, this.position.z, this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
@@ -45,9 +47,9 @@ class aircraft {
     pop();
     pop();
   }
-
+  
   physics() {
-
+    
   }
   move() {
     let heading = this.direction.copy();
@@ -61,7 +63,7 @@ class aircraft {
   look() { //instead of locking plane to the camera, try locking cam to plane
     this.rY -= movedX * this.sensitivity;
     this.rX -= movedY * this.sensitivity;
-
+    
     this.rX = this.rX % 360; // constraints cam rotation based on x axis
     this.rY = this.rY % 360;  // keeps cam rotation on y-axis from 1-360 degrees
     // creates a vector from the origin to the angles stated the first being theta(x axis rotation) and the second being phi(y-axis rotation) and angles taken from mouse movement
@@ -73,7 +75,10 @@ class aircraft {
     
     // this.cam.lookAt(this.camVector.x + this.cam.eyeX, this.camVector.y + this.cam.eyeY, this.camVector.z + this.cam.eyeZ);
   }
-  setCam() {
+  setCam() { //set camPos to be pos - direction and look at pos + dir
+    this.cam.setPosition(this.position.x - this.direction.x*10, this.position.y - this.direction.y*10, this.position.z - this.direction.z*10);
+  
+    this.cam.lookAt(this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
     
   }
 }
