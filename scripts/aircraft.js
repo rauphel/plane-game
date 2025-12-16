@@ -25,18 +25,10 @@ class aircraft {
     this.move();
     this.display();
   }
-  display() {
-    push();
-    translate(this.cam.eyeX, this.cam.eyeY, this.cam.eyeZ);
-    sphere(5);
-    pop();
-    push();
-    translate(this.cam.centerX, this.cam.centerY, this.cam.centerZ);
-    sphere(5);
-    pop();
+  display() { // rotate based on direction with y values set 0
     push();
     
-    line(this.position.x, this.position.y, this.position.z, this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
+    // line(this.position.x, this.position.y, this.position.z, this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
     translate(this.position);
     // rotateX(this.position.angleBetween(this.direction));
     // rotateY(this.position.angleBetween(this.direction));
@@ -68,7 +60,8 @@ class aircraft {
     this.rY = this.rY % 360;  // keeps cam rotation on y-axis from 1-360 degrees
     // creates a vector from the origin to the angles stated the first being theta(x axis rotation) and the second being phi(y-axis rotation) and angles taken from mouse movement
     this.direction = p5.Vector.fromAngles(radians(this.rX), radians(this.rY));
-    this.direction.setMag(10);
+    this.direction.setMag(1);
+    console.log(this.direction.toString());
     // this.direction = createVector(this.position.x + this.camVector.x, this.position.y + this.camVector.y, this.position.z + this.camVector.z);
     // this.direction.add(this.camVector);
     //translates the vector to the cameras coordinates and makes the camera look at that point
@@ -76,7 +69,7 @@ class aircraft {
     // this.cam.lookAt(this.camVector.x + this.cam.eyeX, this.camVector.y + this.cam.eyeY, this.camVector.z + this.cam.eyeZ);
   }
   setCam() { //set camPos to be pos - direction and look at pos + dir
-    this.cam.setPosition(this.position.x - this.direction.x*10, this.position.y - this.direction.y*10, this.position.z - this.direction.z*10);
+    this.cam.setPosition(this.position.x - this.direction.x*200, this.position.y - this.direction.y*200 - 50, this.position.z - this.direction.z*200);
   
     this.cam.lookAt(this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
     
