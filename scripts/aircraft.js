@@ -1,3 +1,5 @@
+
+
 class aircraft {
   constructor(x, y, z) {
 
@@ -9,6 +11,11 @@ class aircraft {
     
     this.mass = 10;
     
+    this.xAxis = createVector(1,0,0);
+    this.yAxis = createVector(0,1,0);
+    // this.zAxis = createVector(0,0,1);
+
+
 
     this.cam = createCamera(); // creates cam and sets its positions
     this.cam.setPosition(this.position.x, this.position.y - 50, this.position.z - 200);
@@ -22,16 +29,21 @@ class aircraft {
   update() {
     this.look();
     this.setCam();
-    this.move();
+    // this.move();
     this.display();
   }
   display() { // rotate based on direction with y values set 0
+    let tempx = createVector(this.direction.x, 0 , this.direction.z);
+    let tempy = createVector(0, this.direction.y , this.direction.z);
+
     push();
     
     // line(this.position.x, this.position.y, this.position.z, this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
     translate(this.position);
-    // rotateX(this.position.angleBetween(this.direction));
-    // rotateY(this.position.angleBetween(this.direction));
+    // rotateX(this.yAxis.angleBetween(tempy) - PI/2);
+    rotateY(this.xAxis.angleBetween(tempx) + PI/2);
+    // console.log(this.yAxis.angleBetween(tempy) - PI/2);
+    console.log(this.xAxis.angleBetween(tempx) );
     push();
     sphere(5);
     rotateX(PI/2);
@@ -61,7 +73,7 @@ class aircraft {
     // creates a vector from the origin to the angles stated the first being theta(x axis rotation) and the second being phi(y-axis rotation) and angles taken from mouse movement
     this.direction = p5.Vector.fromAngles(radians(this.rX), radians(this.rY));
     this.direction.setMag(1);
-    console.log(this.direction.toString());
+    // console.log(this.direction.toString());
     // this.direction = createVector(this.position.x + this.camVector.x, this.position.y + this.camVector.y, this.position.z + this.camVector.z);
     // this.direction.add(this.camVector);
     //translates the vector to the cameras coordinates and makes the camera look at that point
