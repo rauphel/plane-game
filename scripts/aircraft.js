@@ -11,7 +11,7 @@ class aircraft {
     
     this.mass = 10;
     
-    this.xAxis = createVector(1,0,0); // instead of set x and y axis save it as previous axis so no positive to negative switch when more than 180 deg turn
+    this.xAxis = createVector(1,0,0); 
     this.yAxis = createVector(0,1,0);
     // this.zAxis = createVector(0,0,1);
 
@@ -33,7 +33,7 @@ class aircraft {
     this.display();
   }
   display() { // rotate based on direction with y values set 0
-    let tempx = createVector(this.direction.x, 0 , this.direction.z);
+    let tempx = createVector(this.direction.x, 0 , this.direction.z); //after 180 degrees 
     let tempy = createVector(0, this.direction.y , this.direction.z);
 
     push();
@@ -50,6 +50,7 @@ class aircraft {
     cone(30, 60, 5);
     pop();
     pop();
+    
   }
   
   physics() {
