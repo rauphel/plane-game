@@ -11,7 +11,7 @@ class aircraft {
     
     this.mass = 10;
     
-    this.xAxis = createVector(1,0,0);
+    this.xAxis = createVector(1,0,0); // instead of set x and y axis save it as previous axis so no positive to negative switch when more than 180 deg turn
     this.yAxis = createVector(0,1,0);
     // this.zAxis = createVector(0,0,1);
 
@@ -43,7 +43,7 @@ class aircraft {
     // rotateX(this.yAxis.angleBetween(tempy) - PI/2);
     rotateY(this.xAxis.angleBetween(tempx) + PI/2);
     // console.log(this.yAxis.angleBetween(tempy) - PI/2);
-    console.log(this.xAxis.angleBetween(tempx) );
+    console.log(this.xAxis.angleBetween(tempx) + PI/2);
     push();
     sphere(5);
     rotateX(PI/2);
