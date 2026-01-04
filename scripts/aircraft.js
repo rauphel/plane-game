@@ -34,7 +34,7 @@ class aircraft {
   }
   display() { // rotate based on direction with y values set 0
     let tempx = createVector(this.direction.x, 0 , this.direction.z); //after 180 degrees 
-    let tempy = createVector(0, this.direction.y , this.direction.z);
+    // let tempy = createVector(0, this.direction.y , this.direction.z);
 
     push();
     
@@ -43,7 +43,9 @@ class aircraft {
     // rotateX(this.yAxis.angleBetween(tempy) - PI/2);
     rotateY(this.xAxis.angleBetween(tempx) + PI/2);
     // console.log(this.yAxis.angleBetween(tempy) - PI/2);
-    console.log(this.xAxis.angleBetween(tempx) + PI/2);
+    // console.log(this.xAxis.angleBetween(tempx) + PI/2);
+
+
     push();
     sphere(5);
     rotateX(PI/2);
