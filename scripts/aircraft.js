@@ -6,6 +6,9 @@ class aircraft {
     this.position = createVector(x, y, z);
     this.velocity = createVector(0, 0, 0);
     this.acceleration = createVector(0, 0, 0);
+    this.accelRate = 0;
+
+    this.maxSpeed = 10;
     
     this.direction = createVector(0, 0, 1);
     
@@ -27,13 +30,17 @@ class aircraft {
     this.sensitivity = 0.1;
   }
   update() {
+    this.inputs();
     this.look();
     this.setCam();
-    // this.move();
+    this.move();
     this.display();
+    console.log(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2);
+    // console.log(this.direction.toString());
+    // console.log(this.velocity.toString());
   }
   display() { // rotate based on direction with y values set 0
-    let tempx = createVector(this.direction.x, 0 , this.direction.z); //after 180 degrees 
+    // let tempx = createVector(this.direction.x, 0 , this.direction.z); //after 180 degrees 
     // let tempy = createVector(0, this.direction.y , this.direction.z);
 
     push();
@@ -41,7 +48,7 @@ class aircraft {
     // line(this.position.x, this.position.y, this.position.z, this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
     translate(this.position);
     // rotateX(this.yAxis.angleBetween(tempy) - PI/2);
-    rotateY(this.xAxis.angleBetween(tempx) + PI/2);
+    // rotateY(this.xAxis.angleBetween(tempx) + PI/2);
     // console.log(this.yAxis.angleBetween(tempy) - PI/2);
     // console.log(this.xAxis.angleBetween(tempx) + PI/2);
 
@@ -59,11 +66,30 @@ class aircraft {
     
   }
   move() {
-    let heading = this.direction.copy();
-    heading.setMag(0.5);
-    this.acceleration = heading;
-    this.velocity.add(this.acceleration);
-    this.velocity.limit(2);
+    let heading = this.direction.copy(); 
+    //changes in heading is the same as change in acceleartion; when not acceleratiing the current velocity is saves
+    //and then changes in acceleration is made with a dummy variable and then velocity is set to its previous mag
+    if (this.accelRate === 0) {
+      let currentVelocity = this.velocity.mag();
+      heading.setMag(1);
+      this.acceleration = heading;
+      this.velocity.add(this.acceleration);
+      this.velocity.setMag(currentVelocity);
+    }
+    else {
+      heading.setMag(this.accelRate);
+      
+      this.acceleration = heading;
+      this.velocity.add(this.acceleration);
+    }
+    // checks when decelerating if the velocity's direction has changed from the camera direction and sets it to 0
+    if (this.accelRate < 0 &&
+      !(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2)) {
+      this.velocity.set();
+    }
+
+    // limits velocity to a max speed and then updates position
+    this.velocity.limit(this.maxSpeed);
     this.position.add(this.velocity);
   }
   
@@ -89,4 +115,18 @@ class aircraft {
     this.cam.lookAt(this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
     
   }
+
+  inputs() {
+    if (keyIsDown(16)) { //shift key; accelerate
+      this.accelRate = 0.1;
+    }
+    else if (keyIsDown(17)) { //ctrl key; decelerate
+      this.accelRate = -0.1;
+    }
+    else {
+      this.accelRate = 0;
+    }
+  }
+
+
 }
