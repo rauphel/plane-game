@@ -38,23 +38,27 @@ class aircraft {
     console.log(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2);
     // console.log(this.direction.toString());
     // console.log(this.velocity.toString());
+    // console.log(this.direction.heading());
   }
   display() { // rotate based on direction with y values set 0
-    // let tempx = createVector(this.direction.x, 0 , this.direction.z); //after 180 degrees 
+    let tempx = createVector(this.direction.x, 0 , this.direction.z); //after 180 degrees 
     // let tempy = createVector(0, this.direction.y , this.direction.z);
 
     push();
     
-    // line(this.position.x, this.position.y, this.position.z, this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
+    line(this.position.x, this.position.y, this.position.z, this.position.x + this.direction.x*10, this.position.y + this.direction.y*10, this.position.z + this.direction.z*10);
     translate(this.position);
     // rotateX(this.yAxis.angleBetween(tempy) - PI/2);
-    // rotateY(this.xAxis.angleBetween(tempx) + PI/2);
+
+    // this.xAxis.set(-1,0,0);
+    
+    rotateY(Math.abs(this.xAxis.angleBetween(tempx)) + PI/2);
     // console.log(this.yAxis.angleBetween(tempy) - PI/2);
     // console.log(this.xAxis.angleBetween(tempx) + PI/2);
 
 
     push();
-    sphere(5);
+    // sphere(5);
     rotateX(PI/2);
     cone(30, 60, 5);
     pop();
@@ -83,6 +87,7 @@ class aircraft {
       this.velocity.add(this.acceleration);
     }
     // checks when decelerating if the velocity's direction has changed from the camera direction and sets it to 0
+    // solve decelerating too quick when turning
     if (this.accelRate < 0 &&
       !(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2)) {
       this.velocity.set();
