@@ -46,13 +46,17 @@ class aircraft {
 
     push();
     
-    line(this.position.x, this.position.y, this.position.z, this.position.x + this.direction.x*10, this.position.y + this.direction.y*10, this.position.z + this.direction.z*10);
+    line(0,0,0, tempx.x*100, tempx.y*100, tempx.z*100);
+    line(0,0,0, 100, 0, 0);
     translate(this.position);
     // rotateX(this.yAxis.angleBetween(tempy) - PI/2);
 
     // this.xAxis.set(-1,0,0);
     console.log(degrees(this.xAxis.angleBetween(tempx)));
-    rotateY(Math.abs(this.xAxis.angleBetween(tempx)) + PI/2);
+    // console.log(degrees(tempx.angleBetween(this.xAxis)));
+    // console.log(p5.Vector.angleBetween(tempx, this.xAxis));
+
+    rotateY(this.xAxis.angleBetween(tempx) + PI/2);
     // console.log(this.yAxis.angleBetween(tempy) - PI/2);
     // console.log(this.xAxis.angleBetween(tempx) + PI/2);
 
