@@ -35,7 +35,7 @@ class aircraft {
     this.setCam();
     this.move();
     this.display();
-    console.log(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2);
+    // console.log(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2);
     // console.log(this.direction.toString());
     // console.log(this.velocity.toString());
     // console.log(this.direction.heading());
@@ -51,7 +51,7 @@ class aircraft {
     // rotateX(this.yAxis.angleBetween(tempy) - PI/2);
 
     // this.xAxis.set(-1,0,0);
-    
+    console.log(degrees(this.xAxis.angleBetween(tempx)));
     rotateY(Math.abs(this.xAxis.angleBetween(tempx)) + PI/2);
     // console.log(this.yAxis.angleBetween(tempy) - PI/2);
     // console.log(this.xAxis.angleBetween(tempx) + PI/2);
