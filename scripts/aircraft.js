@@ -1,5 +1,3 @@
-
-
 class aircraft {
   constructor(x, y, z) {
 
@@ -17,6 +15,7 @@ class aircraft {
     this.xAxis = createVector(1,0,0); 
     this.yAxis = createVector(0,1,0);
     // this.zAxis = createVector(0,0,1);
+    this.x1 = createVector(0,0,-100);
 
 
 
@@ -41,18 +40,19 @@ class aircraft {
     // console.log(this.direction.heading());
   }
   display() { // rotate based on direction with y values set 0
-    let tempx = createVector(this.direction.x, 0 , this.direction.z); //after 180 degrees 
+    let tempx = createVector(this.direction.x, 0 , this.direction.z).setMag(1); //after 180 degrees 
     // let tempy = createVector(0, this.direction.y , this.direction.z);
-
-    push();
     
+    push();
+    stroke('blue');
     line(0,0,0, tempx.x*100, tempx.y*100, tempx.z*100);
     line(0,0,0, 100, 0, 0);
     translate(this.position);
     // rotateX(this.yAxis.angleBetween(tempy) - PI/2);
 
     // this.xAxis.set(-1,0,0);
-    console.log(degrees(this.xAxis.angleBetween(tempx)));
+    console.log(this.x1.angleBetween(this.xAxis));
+    // console.log(tempx.angleBetween(this.xAxis));
     // console.log(degrees(tempx.angleBetween(this.xAxis)));
     // console.log(p5.Vector.angleBetween(tempx, this.xAxis));
 
