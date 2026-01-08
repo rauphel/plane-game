@@ -12,7 +12,7 @@ class aircraft {
     
     this.mass = 10;
     
-    this.xAxis = createVector(1,0,0); 
+    this.xAxis = createVector(1,0.01,0); 
     this.yAxis = createVector(0,1,0);
     // this.zAxis = createVector(0,0,1);
     this.x1 = createVector(0,0,-100);
@@ -51,8 +51,8 @@ class aircraft {
     // rotateX(this.yAxis.angleBetween(tempy) - PI/2);
 
     // this.xAxis.set(-1,0,0);
-    console.log(this.x1.angleBetween(this.xAxis));
-    // console.log(tempx.angleBetween(this.xAxis));
+    // console.log(this.x1.angleBetween(this.xAxis));
+    console.log(tempx.angleBetween(this.xAxis));
     // console.log(degrees(tempx.angleBetween(this.xAxis)));
     // console.log(p5.Vector.angleBetween(tempx, this.xAxis));
 
@@ -137,5 +137,8 @@ class aircraft {
     }
   }
 
+  lazerGun() {
+
+  }
 
 }
