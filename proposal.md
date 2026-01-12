@@ -14,9 +14,9 @@ Implemented = 🟢 not Implemented = 🔴
 - render distance 🟢
 
 ### 2: Aircraft
-- one type
-- mouse control to fly the plane
-- simple physics; more space ship than plane
+- one type🟢
+- mouse control to fly the plane🟢
+- simple physics; more space ship than plane🟢
 - simple gun with ammo count: hitscan
 
 ### 3: Enemy Base

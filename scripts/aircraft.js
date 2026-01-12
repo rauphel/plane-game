@@ -15,7 +15,7 @@ class aircraft {
     this.xAxis = createVector(1,0,0); 
     this.yAxis = createVector(0,1,0);
     // this.zAxis = createVector(0,0,1);
-    this.x1 = createVector(0,0,-100);
+
 
 
 
@@ -33,9 +33,9 @@ class aircraft {
     this.look();
     this.setCam();
     this.move();
-    this.display();
+    // this.display();
     // console.log(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2);
-    console.log(radians(this.rY));
+    // console.log(radians(this.rX));
     // console.log(this.velocity.toString());
     // console.log(this.direction.heading());
   }
@@ -49,25 +49,14 @@ class aircraft {
     line(0,0,0, 100, 0, 0);
     translate(this.position);
     
-    // this.xAxis.set(-1,0,0);
-    // console.log(this.x1.angleBetween(this.xAxis));
-    // console.log(this.xAxis.angleBetween(tempx));
-    // console.log(degrees(tempx.angleBetween(this.xAxis)));
-    // console.log(p5.Vector.angleBetween(tempx, this.xAxis));
-    
-    rotateX(radians(this.rX));
-    push();
     rotateY(radians(this.rY));
-    // console.log(this.yAxis.angleBetween(tempy) - PI/2);
-    // console.log(this.xAxis.angleBetween(tempx) + PI/2);
-
-
+    rotateX(-(radians(this.rX) + PI/2));
+   
     push();
-    // sphere(5);
+    translate(0,30,0);
     rotateY(PI);
     rotateX(PI/2);
     cone(30, 60, 5);
-    pop();
     pop();
     pop();
   }
@@ -137,10 +126,17 @@ class aircraft {
     else {
       this.accelRate = 0;
     }
+    if (mouseIsPressed) {
+      this.lazerGun();
+    }
   }
 
   lazerGun() {
+    // make a line and copy of current direction then apply transformation to move line in direction;
+    let target = this.direction.copy();
+    target.setMag(100);
+    target.add(this.position.x, this.position.y, this.position.z);
+    line(this.position.x, this.position.y + 30, this.position.z, target.x, target.y + 30, target.z);
 
   }
-
 }
