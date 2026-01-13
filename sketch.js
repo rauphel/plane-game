@@ -7,6 +7,7 @@
 
 let freeCam;
 let origin;
+let deathStar;
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
@@ -16,6 +17,7 @@ function setup() {
   seed = random(1, 100);
   freeCam = new MovableCam(0, 0, 0);
   craft = new aircraft(0, -20, 50);
+  deathStar = new enemy(600, -700, 600);
   origin = terrainOrigin(craft);
   terrainHeight = generateHeight(cols, rows, seed, origin);
 }
@@ -27,6 +29,7 @@ function draw() {
   terrainUpdate(craft);
   freeCam.update();
   craft.update();
+  deathStar.update();
 
 }
 

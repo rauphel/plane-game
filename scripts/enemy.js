@@ -6,9 +6,15 @@ class enemy {
   }
 
   update() {
-
+    this.display();
   }
   display() {
+    push();
+    translate(this.position);
     sphere();
+    pop()
+  }
+  bulletCollision(ray) {
+
   }
 }

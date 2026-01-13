@@ -16,7 +16,7 @@ class aircraft {
     this.yAxis = createVector(0,1,0);
     // this.zAxis = createVector(0,0,1);
 
-
+    this.firing = false;
 
 
     this.cam = createCamera(); // creates cam and sets its positions
@@ -28,12 +28,13 @@ class aircraft {
 
     this.sensitivity = 0.1;
   }
-  update() {
+  update(enemy) {
     this.inputs();
     this.look();
     this.setCam();
     this.move();
-    // this.display();
+    this.lazerGun(enemy);
+    this.display();
     // console.log(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2);
     // console.log(radians(this.rX));
     // console.log(this.velocity.toString());
@@ -53,9 +54,11 @@ class aircraft {
     rotateX(-(radians(this.rX) + PI/2));
    
     push();
-    translate(0,30,0);
+    // translate(0,30,0);
     rotateY(PI);
     rotateX(PI/2);
+    fill(255, 255, 255, 50);
+    noStroke();
     cone(30, 60, 5);
     pop();
     pop();
@@ -127,16 +130,26 @@ class aircraft {
       this.accelRate = 0;
     }
     if (mouseIsPressed) {
-      this.lazerGun();
+      this.firing = true;
+    }
+    else {
+      this.firing = false;
     }
   }
 
-  lazerGun() {
-    // make a line and copy of current direction then apply transformation to move line in direction;
-    let target = this.direction.copy();
-    target.setMag(100);
-    target.add(this.position.x, this.position.y, this.position.z);
-    line(this.position.x, this.position.y + 30, this.position.z, target.x, target.y + 30, target.z);
+  lazerGun(enemy) {
+    if (this.firing){
+      // make a line and copy of current direction then apply transformation to move line in direction;
+      let target = this.direction.copy();
+      let ray = {
+        origin: this.position,
+        target: target,
+      };
+      target.setMag(100);
+      target.add(this.position.x, this.position.y, this.position.z);
+      line(this.position.x, this.position.y, this.position.z, target.x, target.y, target.z);
+      enemy.bulletCollision(ray);
+    }
 
   }
 }
