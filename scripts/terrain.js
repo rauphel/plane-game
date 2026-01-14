@@ -81,8 +81,8 @@ function _showTerrain(originVector) {
 }
 
 function terrainOrigin(player) {
-  let _x = Math.floor(player.x/SUBDIVISIONS);
-  let _z = Math.floor(player.z/SUBDIVISIONS);
+  let _x = Math.floor(player.position.x/SUBDIVISIONS);
+  let _z = Math.floor(player.position.z/SUBDIVISIONS);
 
   originVector = createVector(_x, 0, _z);
 
@@ -111,5 +111,5 @@ function terrainUpdate(player) {
 
   // terrainHeight = generateHeight(cols, rows, seed, origin);
   // showTerrain(origin);
-  // _showTerrain(origin);
+  _showTerrain(origin);
 }

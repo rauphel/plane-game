@@ -28,12 +28,12 @@ class aircraft {
 
     this.sensitivity = 0.1;
   }
-  update(enemy) {
+  update(enemies) {
     this.inputs();
     this.look();
     this.setCam();
     this.move();
-    this.lazerGun(enemy);
+    this.lazerGun(enemies);
     this.display();
     // console.log(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2);
     // console.log(radians(this.rX));
@@ -45,9 +45,9 @@ class aircraft {
     // let tempy = createVector(0, this.direction.y , this.direction.z);
     
     push();
-    stroke('blue');
-    line(0,0,0, tempx.x*100, tempx.y*100, tempx.z*100);
-    line(0,0,0, 100, 0, 0);
+    // stroke('blue');
+    // line(0,0,0, tempx.x*100, tempx.y*100, tempx.z*100);
+    // line(0,0,0, 100, 0, 0);
     translate(this.position);
     
     rotateY(radians(this.rY));
@@ -59,7 +59,7 @@ class aircraft {
     rotateX(PI/2);
     fill(255, 255, 255, 50);
     noStroke();
-    cone(30, 60, 5);
+    // cone(30, 60, 5);
     pop();
     pop();
   }
@@ -137,18 +137,28 @@ class aircraft {
     }
   }
 
-  lazerGun(enemy) {
+  lazerGun(enemies) {
     if (this.firing){
-      // make a line and copy of current direction then apply transformation to move line in direction;
-      let target = this.direction.copy();
-      let ray = {
-        origin: this.position,
-        target: target,
-      };
-      target.setMag(100);
-      target.add(this.position.x, this.position.y, this.position.z);
-      line(this.position.x, this.position.y, this.position.z, target.x, target.y, target.z);
-      enemy.bulletCollision(ray);
+    //   // make a line and copy of current direction then apply transformation to move line in direction;
+    //   let target = this.direction.copy();
+    //   target.setMag(1000);
+    //   let ray = {
+    //     origin: this.position,
+    //     direction: target,
+    //   };
+    //   target.add(this.position.x, this.position.y, this.position.z);
+    //   // stroke('blue');
+    //   line(this.position.x, this.position.y, this.position.z, target.x, target.y, target.z);
+    //   for (let enemy of enemies) {
+    //     // let hit = enemy.bulletCollision(ray);
+    //     // // console.log(hit);
+    //     // if (hit) {
+    //     //   fill('black');
+    //     // }
+    //     // else {
+    //     //   fill('white');
+    //     // }
+    //   }
     }
 
   }
