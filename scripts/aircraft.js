@@ -59,7 +59,7 @@ class aircraft {
     rotateX(PI/2);
     fill(255, 255, 255, 50);
     noStroke();
-    // cone(30, 60, 5);
+    cone(30, 60, 5);
     pop();
     pop();
   }
