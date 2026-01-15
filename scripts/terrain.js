@@ -65,7 +65,7 @@ function _showTerrain(originVector) {
   push();
   fill('gray');
   strokeWeight(0.5);
-  translate(-RENDER_DISTANCE/2, 0, -RENDER_DISTANCE/2); //transforms to be a plane on the x and z axis
+  // translate(-RENDER_DISTANCE/2, 0, -RENDER_DISTANCE/2); //transforms to be a plane on the x and z axis
   rotateX(PI/2);
 
   for (let z = originVector.z; z < rows + originVector.z && z < terrainHeight.length && z >= 0; z++) { // generates a triangles strip to display terrain using generated heights in 2d array
