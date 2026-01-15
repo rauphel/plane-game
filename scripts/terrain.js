@@ -2,8 +2,8 @@
 
 // initializes grid for triangles width and length and its SUBDIVISIONS
 const SUBDIVISIONS = 50;
-const TERRAIN_X = 5000;
-const TERRAIN_Z = 5000;
+const TERRAIN_X = 1000;
+const TERRAIN_Z = 1000;
 const RENDER_DISTANCE = 1000;
 const MIN_HEIGHT = -100;
 const MAX_HEIGHT = 200;
@@ -63,21 +63,29 @@ function showTerrain(originVector) {
 // needs work on
 function _showTerrain(originVector) {
   push();
+
   fill('gray');
   strokeWeight(0.5);
   // translate(-RENDER_DISTANCE/2, 0, -RENDER_DISTANCE/2); //transforms to be a plane on the x and z axis
   rotateX(PI/2);
-
-  for (let z = originVector.z; z < rows + originVector.z && z < terrainHeight.length && z >= 0; z++) { // generates a triangles strip to display terrain using generated heights in 2d array
+  
+  let _z = 0;
+  for (let z = originVector.z - floor(rows/2); z < floor(rows/2) + originVector.z - 1; z++) { // generates a triangles strip to display terrain using generated heights in 2d array
     beginShape(TRIANGLE_STRIP);
-    for (let x = originVector.x; x < cols + originVector.x && x < terrainHeight.length && x >= 0; x++) {
-      vertex(x * SUBDIVISIONS, z * SUBDIVISIONS, terrainHeight[z][x]);
-      vertex(x * SUBDIVISIONS, (z + 1) * SUBDIVISIONS, terrainHeight[z + 1][x]);
+    let _x = 0;
+    for (let x = originVector.x - floor(cols/2); x < floor(cols/2) + originVector.x - 1; x++) {
+      vertex(x * SUBDIVISIONS, z * SUBDIVISIONS, terrainHeight[_z][_x]);
+      vertex(x * SUBDIVISIONS, (z + 1) * SUBDIVISIONS, terrainHeight[_z + 1][_x]);
+      
+      _x++;
     }
+    _z++;
+
     endShape();
   }
-
   pop();
+
+
 }
 
 function terrainOrigin(player) {
@@ -93,8 +101,8 @@ function showPlane(originVector) { // plane for tests
   push();
   translate(originVector.x * SUBDIVISIONS, 0, originVector.z * SUBDIVISIONS);
   rotateX(PI/2);
-  fill('blue');
-  plane(TERRAIN_X, TERRAIN_Z);
+  fill('gray');
+  plane(TERRAIN_X * 5, TERRAIN_Z * 5);
   pop();
 }
 
@@ -106,10 +114,10 @@ function terrainUpdate(player) {
   //   showTerrain(origin);
   // }
   // if (Math.abs(origin.x) * SUBDIVISIONS / 2 < TERRAIN_X && Math.abs(origin.z) * SUBDIVISIONS / 2 < TERRAIN_Z){
-  // showPlane(origin);
+  showPlane(origin);
   // }
 
-  // terrainHeight = generateHeight(cols, rows, seed, origin);
+  terrainHeight = generateHeight(cols, rows, seed, origin);
   // showTerrain(origin);
   _showTerrain(origin);
 }
