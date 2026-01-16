@@ -140,25 +140,25 @@ class aircraft {
   lazerGun(enemies) {
     if (this.firing){
     //   // make a line and copy of current direction then apply transformation to move line in direction;
-    //   let target = this.direction.copy();
-    //   target.setMag(1000);
-    //   let ray = {
-    //     origin: this.position,
-    //     direction: target,
-    //   };
-    //   target.add(this.position.x, this.position.y, this.position.z);
-    //   // stroke('blue');
-    //   line(this.position.x, this.position.y, this.position.z, target.x, target.y, target.z);
-    //   for (let enemy of enemies) {
-    //     // let hit = enemy.bulletCollision(ray);
-    //     // // console.log(hit);
-    //     // if (hit) {
-    //     //   fill('black');
-    //     // }
-    //     // else {
-    //     //   fill('white');
-    //     // }
-    //   }
+      let target = this.direction.copy();
+      // target.setMag(1000);
+      let ray = {
+        origin: this.position,
+        direction: target,
+      };
+      target.add(this.position.x, this.position.y, this.position.z);
+      // stroke('blue');
+      line(this.position.x, this.position.y, this.position.z, target.x, target.y, target.z);
+      for (let enemy of enemies) {
+        let hit = enemy.bulletCollision(ray);
+        // console.log(hit);
+        if (hit) {
+          enemy.color = 'gray';
+        }
+        else {
+          enemy.color = 'white';
+        }
+      }
     }
 
   }

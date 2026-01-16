@@ -18,7 +18,7 @@ function setup() {
   seed = random(1, 100);
   freeCam = new MovableCam(0, 0, 0);
   craft = new aircraft(0, -20, 50);
-  enemyList.push(new enemy(0, 0, 0));
+  enemyList.push(new enemy(500, 0, 300));
   origin = terrainOrigin(craft);
   terrainHeight = generateHeight(cols, rows, seed, origin);
 }
@@ -30,9 +30,9 @@ function draw() {
   terrainUpdate(craft);
   freeCam.update();
   craft.update(enemyList);
-  // for (let enemy of enemyList){
-  //   enemy.update();
-  // }
+  for (let enemy of enemyList){
+    enemy.update();
+  }
 }
 
 function keyPressed() { // seed randomizer and gets new heights

@@ -5,8 +5,8 @@ const SUBDIVISIONS = 50;
 const TERRAIN_X = 1000;
 const TERRAIN_Z = 1000;
 const RENDER_DISTANCE = 1000;
-const MIN_HEIGHT = -100;
-const MAX_HEIGHT = 200;
+const MIN_HEIGHT = 100;
+const MAX_HEIGHT = -200;
 const OFFSET = 0.2;
 let rows, cols;
 
@@ -25,7 +25,7 @@ function generateHeight(cols, rows, seed, originVector) { // generates a 2d grid
     heights.push([]);
     let xOffset = OFFSET * originVector.x;
     for (let x = 0; x < TERRAIN_X/SUBDIVISIONS; x++) { //pushes noise value mappes to a max of 100 and min of -100 and offset is distance between each noise valie
-      heights[z].push(map(noise(xOffset, zOffset), 0, 1, MIN_HEIGHT, MAX_HEIGHT));
+      heights[z].push(map(noise(xOffset, zOffset), 0, 1, MAX_HEIGHT, MIN_HEIGHT));
       xOffset += OFFSET;
     }
     zOffset += OFFSET;
@@ -99,9 +99,10 @@ function terrainOrigin(player) {
 
 function showPlane(originVector) { // plane for tests 
   push();
-  translate(originVector.x * SUBDIVISIONS, 0, originVector.z * SUBDIVISIONS);
+  translate(originVector.x * SUBDIVISIONS, MIN_HEIGHT + 50, originVector.z * SUBDIVISIONS);
   rotateX(PI/2);
   fill('gray');
+  stroke('gray');
   plane(TERRAIN_X * 5, TERRAIN_Z * 5);
   pop();
 }
