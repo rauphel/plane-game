@@ -32,6 +32,9 @@ function draw() {
   craft.update(enemyList);
   for (let enemy of enemyList){
     enemy.update();
+    if (enemy.health <= 0) {
+      //splice enemy
+    }
   }
 }
 

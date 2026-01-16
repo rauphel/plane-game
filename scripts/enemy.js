@@ -22,18 +22,22 @@ class enemy {
 
     let tc = p5.Vector.dot(l, ray.direction);
     console.log(ray.direction.toString() + 'r');
-    console.log(l.toString());
+    console.log(l.toString() + l.mag());
     console.log(tc + 'tc');
     if (tc < 0 ) {
       return false;
     }
-    let d2 = tc**2 - l.mag()**2;
-    console.log(Math.sqrt(d2)+ 'd');
-    if (d2 > this.radius**2) {
+    let d2 = Math.sqrt(l.mag()**2 - tc**2);
+    console.log(d2 + "d2");
+    // console.log(Math.sqrt(d2)+ 'd');
+    if (d2 > this.radius) {
       return false;
     }
     
     // let t1c = Math.sqrt(this.radius**2 - d2);
     return true;
+  }
+  health() {
+    
   }
 }

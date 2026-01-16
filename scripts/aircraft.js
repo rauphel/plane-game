@@ -116,7 +116,7 @@ class aircraft {
     this.cam.setPosition(this.position.x - this.direction.x*200, this.position.y - this.direction.y*200 - 50, this.position.z - this.direction.z*200);
   
     this.cam.lookAt(this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
-    
+    this.direction.setMag(1);
   }
 
   inputs() {
@@ -146,20 +146,22 @@ class aircraft {
         origin: this.position,
         direction: target,
       };
-      target.add(this.position.x, this.position.y, this.position.z);
-      // stroke('blue');
-      line(this.position.x, this.position.y, this.position.z, target.x, target.y, target.z);
       for (let enemy of enemies) {
         let hit = enemy.bulletCollision(ray);
         // console.log(hit);
         if (hit) {
           enemy.color = 'gray';
+          enemy.health -= 1/frameRate();
         }
         else {
           enemy.color = 'white';
         }
+        target.setMag(1000);
+        target.add(this.position.x, this.position.y, this.position.z);
+        // stroke('blue');
+        line(this.position.x, this.position.y, this.position.z, target.x, target.y, target.z);
       }
     }
 
   }
-}
+}   
