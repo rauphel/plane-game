@@ -17,7 +17,7 @@ Implemented = 🟢 not Implemented = 🔴
 - one type🟢
 - mouse control to fly the plane🟢
 - simple physics; more space ship than plane🟢
-- simple gun with ammo count: hitscan
+- simple gun with ammo count: hitscan🟢
 
 ### 3: Enemy Base
 - Stationary air base
@@ -27,7 +27,7 @@ Implemented = 🟢 not Implemented = 🔴
 
 ## Nice to Have
 ### 1: Terrain
-- procedually genereated terrain 🔴
+- procedually genereated terrain 🟢
 - different biomes
 - biomes/altitude affecting aircraft performance
 - clouds

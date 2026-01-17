@@ -17,6 +17,7 @@ class aircraft {
     // this.zAxis = createVector(0,0,1);
 
     this.firing = false;
+    this.DAMAGE = 20;
 
 
     this.cam = createCamera(); // creates cam and sets its positions
@@ -33,6 +34,7 @@ class aircraft {
     this.look();
     this.setCam();
     this.move();
+    this.groundCollision();
     this.lazerGun(enemies);
     this.display();
     // console.log(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2);
@@ -49,7 +51,7 @@ class aircraft {
     // line(0,0,0, tempx.x*100, tempx.y*100, tempx.z*100);
     // line(0,0,0, 100, 0, 0);
     translate(this.position);
-    
+    sphere(5);
     rotateY(radians(this.rY));
     rotateX(-(radians(this.rX) + PI/2));
    
@@ -151,17 +153,26 @@ class aircraft {
         // console.log(hit);
         if (hit) {
           enemy.color = 'gray';
-          enemy.health -= 1/frameRate();
+          enemy.health -= this.DAMAGE/frameRate();
+          console.log(enemy.health);
         }
         else {
           enemy.color = 'white';
         }
-        target.setMag(1000);
-        target.add(this.position.x, this.position.y, this.position.z);
-        // stroke('blue');
-        line(this.position.x, this.position.y, this.position.z, target.x, target.y, target.z);
       }
+      target.setMag(1000);
+      target.add(this.position.x, this.position.y, this.position.z);
+      // stroke('blue');
+      line(this.position.x, this.position.y, this.position.z, target.x, target.y, target.z);
     }
 
+  }
+
+  groundCollision() {
+    // let currentPosition = terrainOrigin(this);
+    if (this.position.y > terrainHeight[9][9]) {
+      this.position.y = terrainHeight[9][9];
+      console.log(true);
+    }
   }
 }   

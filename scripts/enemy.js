@@ -3,7 +3,7 @@ class enemy {
     this.position = createVector(x, y, z);
     this.radius = 50;
 
-    this.health = 1000;
+    this.health = 100;
     this.color = 'white';
   }
 
@@ -21,14 +21,14 @@ class enemy {
     let l = p5.Vector.sub(this.position, ray.origin);
 
     let tc = p5.Vector.dot(l, ray.direction);
-    console.log(ray.direction.toString() + 'r');
-    console.log(l.toString() + l.mag());
-    console.log(tc + 'tc');
+    // console.log(ray.direction.toString() + 'r');
+    // console.log(l.toString() + l.mag());
+    // console.log(tc + 'tc');
     if (tc < 0 ) {
       return false;
     }
     let d2 = Math.sqrt(l.mag()**2 - tc**2);
-    console.log(d2 + "d2");
+    // console.log(d2 + "d2");
     // console.log(Math.sqrt(d2)+ 'd');
     if (d2 > this.radius) {
       return false;

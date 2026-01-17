@@ -34,6 +34,7 @@ function draw() {
     enemy.update();
     if (enemy.health <= 0) {
       //splice enemy
+      enemyList.splice(enemyList.indexOf(enemy), 1);
     }
   }
 }
