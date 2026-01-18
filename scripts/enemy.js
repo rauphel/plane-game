@@ -40,4 +40,11 @@ class enemy {
   health() {
     
   }
+  groundCollision() {
+    // let currentPosition = terrainOrigin(this);
+    if (this.position.y > terrainHeight[9][9]) {
+      this.position.y = terrainHeight[9][9];
+      console.log(true);
+    }
+  }
 }

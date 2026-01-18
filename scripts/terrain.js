@@ -66,16 +66,14 @@ function _showTerrain(originVector) {
 
   fill('gray');
   strokeWeight(0.5);
-  // translate(-RENDER_DISTANCE/2, 0, -RENDER_DISTANCE/2); //transforms to be a plane on the x and z axis
-  rotateX(PI/2);
   
   let _z = 0;
   for (let z = originVector.z - floor(rows/2); z < floor(rows/2) + originVector.z - 1; z++) { // generates a triangles strip to display terrain using generated heights in 2d array
     beginShape(TRIANGLE_STRIP);
     let _x = 0;
     for (let x = originVector.x - floor(cols/2); x < floor(cols/2) + originVector.x - 1; x++) {
-      vertex(x * SUBDIVISIONS, z * SUBDIVISIONS, terrainHeight[_z][_x]);
-      vertex(x * SUBDIVISIONS, (z + 1) * SUBDIVISIONS, terrainHeight[_z + 1][_x]);
+      vertex(x * SUBDIVISIONS,terrainHeight[_z][_x] , z * SUBDIVISIONS);
+      vertex(x * SUBDIVISIONS, terrainHeight[_z + 1][_x], (z + 1) * SUBDIVISIONS);
       
       _x++;
     }
@@ -120,4 +118,12 @@ function terrainUpdate(player) {
   terrainHeight = generateHeight(cols, rows, seed, origin);
   // showTerrain(origin);
   _showTerrain(origin);
+  airfield();
+}
+
+function airfield() {
+  push();
+  fill(81, 81, 81);
+  box(SUBDIVISIONS*10, SUBDIVISIONS*2, SUBDIVISIONS*5);
+  pop();
 }
