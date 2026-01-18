@@ -5,7 +5,7 @@ const SUBDIVISIONS = 50;
 const TERRAIN_X = 1000;
 const TERRAIN_Z = 1000;
 const RENDER_DISTANCE = 1000;
-const MIN_HEIGHT = 100;
+const MIN_HEIGHT = 200;
 const MAX_HEIGHT = -200;
 const OFFSET = 0.2;
 let rows, cols;
@@ -84,7 +84,6 @@ function _showTerrain(originVector) {
     endShape();
   }
   pop();
-
 
 }
 
