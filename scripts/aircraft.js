@@ -11,14 +11,13 @@ class aircraft {
     this.direction = createVector(0, 0, 1);
     
     this.mass = 10;
-    
-    this.xAxis = createVector(1,0,0); 
-    this.yAxis = createVector(0,1,0);
-    // this.zAxis = createVector(0,0,1);
+    this.shipWidth = 30;
+    this.shipLength = 60;
+    this.color = color(132,132,130);
 
+    this.LASERLENGTH = 2000;
     this.firing = false;
     this.DAMAGE = 20;
-
 
     this.cam = createCamera(); // creates cam and sets its positions
     this.cam.setPosition(this.position.x, this.position.y - 50, this.position.z - 200);
@@ -28,8 +27,9 @@ class aircraft {
     this.camVector; //vector for where it's looking
 
     this.sensitivity = 0.1;
+    this.showHud = true;
   }
-  update(enemies) {
+  update(enemies) { // updates all functions needed in one function
     this.inputs();
     this.look();
     this.setCam();
@@ -37,38 +37,27 @@ class aircraft {
     this.groundCollision();
     this.lazerGun(enemies);
     this.display();
-    // console.log(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2);
-    // console.log(radians(this.rX));
-    // console.log(this.velocity.toString());
-    // console.log(this.direction.heading());
+    this.hudDisplay();
+
   }
-  display() { // rotate based on direction with y values set 0
-    let tempx = createVector(this.direction.x, 0 , this.direction.z).setMag(1); //after 180 degrees 
-    // let tempy = createVector(0, this.direction.y , this.direction.z);
+  display() { 
+    //translates to position and then turns to camera direction by using the same values that setCam() uses
     
     push();
-    // stroke('blue');
-    // line(0,0,0, tempx.x*100, tempx.y*100, tempx.z*100);
-    // line(0,0,0, 100, 0, 0);
     translate(this.position);
-    sphere(5);
     rotateY(radians(this.rY));
     rotateX(-(radians(this.rX) + PI/2));
    
     push();
-    // translate(0,30,0);
     rotateY(PI);
     rotateX(PI/2);
-    fill(255, 255, 255, 50);
+    fill(this.color);
     noStroke();
-    cone(30, 60, 5);
+    cone(this.shipWidth, this.shipLength, 5);
     pop();
     pop();
   }
   
-  physics() {
-    
-  }
   move() {
     let heading = this.direction.copy(); 
     //changes in heading is the same as change in acceleartion; when not acceleratiing the current velocity is saves
@@ -107,14 +96,9 @@ class aircraft {
     // creates a vector from the origin to the angles stated the first being theta(x axis rotation) and the second being phi(y-axis rotation) and angles taken from mouse movement
     this.direction = p5.Vector.fromAngles(radians(this.rX), radians(this.rY));
     this.direction.setMag(1);
-    // console.log(this.direction.toString());
-    // this.direction = createVector(this.position.x + this.camVector.x, this.position.y + this.camVector.y, this.position.z + this.camVector.z);
-    // this.direction.add(this.camVector);
-    //translates the vector to the cameras coordinates and makes the camera look at that point
-    
-    // this.cam.lookAt(this.camVector.x + this.cam.eyeX, this.camVector.y + this.cam.eyeY, this.camVector.z + this.cam.eyeZ);
+
   }
-  setCam() { //set camPos to be pos - direction and look at pos + dir
+  setCam() { //set camPosition to be position - direction and look at position + direction
     this.cam.setPosition(this.position.x - this.direction.x*200, this.position.y - this.direction.y*200 - 50, this.position.z - this.direction.z*200);
   
     this.cam.lookAt(this.position.x + this.direction.x, this.position.y + this.direction.y, this.position.z + this.direction.z);
@@ -131,7 +115,7 @@ class aircraft {
     else {
       this.accelRate = 0;
     }
-    if (mouseIsPressed) {
+    if (mouseIsPressed) { // firing the lazer
       this.firing = true;
     }
     else {
@@ -141,41 +125,58 @@ class aircraft {
 
   lazerGun(enemies) {
     if (this.firing){
-    //   // make a line and copy of current direction then apply transformation to move line in direction;
+    // make a line and copy of current direction then apply transformation to move line in direction;
       let target = this.direction.copy();
-      // target.setMag(1000);
+
       let ray = {
         origin: this.position,
         direction: target,
       };
-      for (let enemy of enemies) {
+      for (let enemy of enemies) { // checks every enemy if it is being hit 
         let hit = enemy.bulletCollision(ray);
-        // console.log(hit);
-        if (hit) {
-          // enemy.color = 'gray';
+
+        if (hit) { 
           enemy.health -= this.DAMAGE/frameRate();
-          // console.log(enemy.health);
         }
-        // enemy.color = 'white';
-        
-        if (enemy.health <= 0) {
-        //splice enemy
+        if (enemy.health <= 0) { //checks if enemy is dead and then gets rid of it
           enemyList.splice(enemyList.indexOf(enemy), 1);
         }
       }
-      target.setMag(1000);
+      target.setMag(this.LASERLENGTH);
       target.add(this.position.x, this.position.y, this.position.z);
-      // stroke('blue');
+      push();
+      stroke('red'); //the visible laser
       line(this.position.x, this.position.y, this.position.z, target.x, target.y, target.z);
+      pop();
     }
 
   }
-
   groundCollision() {
-    // let currentPosition = terrainOrigin(this);
-    if (this.position.y > terrainHeight[9][9]) {
-      this.position.y = terrainHeight[9][9];
-      console.log(true);
+    if (this.position.y > terrainHeight[9][9]) { //finds the height of the center most piece of the terrain height array 
+      //and compares to current height and repositions to be above if below
+      this.position.y = terrainHeight[9][9] - this.shipWidth;
+    }
+  }
+  hudDisplay() { // hud system by finding the cameras current angles and position and then positioning text in front
+    if (this.showHud) {
+
+      push();
+      // the angles of the camera between its location and where its looking
+      let _pan = atan2(this.cam.eyeZ - this.cam.centerZ, this.cam.eyeX - this.cam.centerX); 
+      let _tilt = atan2(this.cam.eyeY - this.cam.centerY, dist(this.cam.centerX, this.cam.centerZ, this.cam.eyeX, this.cam.eyeZ));
+      translate(this.cam.eyeX, this.cam.eyeY, this.cam.eyeZ);
+      rotateY(-_pan);
+      rotateZ(_tilt + PI);
+      translate(100, 0,0); //distance from camera
+      // sphere()
+      push();
+      rotateY(-PI/2);
+      rotateZ(PI);
+      translate(-100, -50, 0);
+      fill('black');
+      text('left mouse button: shoot, shift: accelerate, ctrl: decelerate, r; randomize seed, c: toggle texts, goal: find and shoot down sphere', 0, 0, 200, 800);
+      pop();
+      pop();
     }
   }
 }   
