@@ -152,12 +152,15 @@ class aircraft {
         let hit = enemy.bulletCollision(ray);
         // console.log(hit);
         if (hit) {
-          enemy.color = 'gray';
+          // enemy.color = 'gray';
           enemy.health -= this.DAMAGE/frameRate();
-          console.log(enemy.health);
+          // console.log(enemy.health);
         }
-        else {
-          enemy.color = 'white';
+        // enemy.color = 'white';
+        
+        if (enemy.health <= 0) {
+        //splice enemy
+          enemyList.splice(enemyList.indexOf(enemy), 1);
         }
       }
       target.setMag(1000);

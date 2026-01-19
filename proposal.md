@@ -9,7 +9,7 @@ To win is to take down all enemies before they reach your airdield
 Implemented = 🟢 not Implemented = 🔴
 ### 1: Terrain
 - an ocean surrounding the airfield
-- Airfield 🔴
+- Airfield 🔴 
     - airfield collision
 - render distance 🟢
 
@@ -31,7 +31,7 @@ Implemented = 🟢 not Implemented = 🔴
 - different biomes
 - biomes/altitude affecting aircraft performance
 - clouds
-- terrain collision
+- terrain collision 🟢: rudimentary
 
 ### 2: Aircraft
 - more advanced/realistic physics; more accurate lift and drag calculations

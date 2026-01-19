@@ -12,15 +12,16 @@ let enemyList = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
-  debugMode();
+  // debugMode();
   rows = RENDER_DISTANCE / SUBDIVISIONS;
   cols = RENDER_DISTANCE / SUBDIVISIONS;
   seed = random(1, 100);
   freeCam = new MovableCam(0, 0, 0);
   craft = new aircraft(0, -20, 50);
-  enemyList.push(new enemy(500, 0, 300));
   origin = terrainOrigin(craft);
   terrainHeight = generateHeight(cols, rows, seed, origin);
+  enemyList.push(new enemy(500, 0, 300));
+  
 }
 
 function draw() {
@@ -32,10 +33,10 @@ function draw() {
   craft.update(enemyList);
   for (let enemy of enemyList){
     enemy.update();
-    if (enemy.health <= 0) {
-      //splice enemy
-      enemyList.splice(enemyList.indexOf(enemy), 1);
-    }
+    // if (enemy.health <= 0) {
+    //   //splice enemy
+    //   enemyList.splice(enemyList.indexOf(enemy), 1);
+    // }
   }
 }
 
@@ -51,7 +52,8 @@ function keyPressed() { // seed randomizer and gets new heights
     setCamera(craft.cam);
   }
 }
-function doubleClicked() { // locks cursor with double click
+
+
+function mouseClicked() {
   requestPointerLock();
-  // orbitControl();
 }

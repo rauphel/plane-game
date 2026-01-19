@@ -118,12 +118,25 @@ function terrainUpdate(player) {
   terrainHeight = generateHeight(cols, rows, seed, origin);
   // showTerrain(origin);
   _showTerrain(origin);
-  airfield();
+  // airfield();
 }
 
-function airfield() {
-  push();
-  fill(81, 81, 81);
-  box(SUBDIVISIONS*10, SUBDIVISIONS*2, SUBDIVISIONS*5);
-  pop();
-}
+// function airfield() {
+//   push();
+//   fill(81, 81, 81);
+//   box(SUBDIVISIONS*10, SUBDIVISIONS*2, SUBDIVISIONS*5);
+//   pop();
+// }
+
+// function terrainSetup() {
+//   // find tallest point of spawn chunk
+//   bigNums = [];
+//   for (let z of terrainHeight) {
+//     bigNums.push(Math.max(...z));
+//   }
+//   // console.log(Math.max(...bigNums));
+//   // return Math.max(...bigNums);
+//   let airfieldProperties = {
+//     height: Math.max()
+//   }
+// }
