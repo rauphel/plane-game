@@ -10,4 +10,4 @@ No, I didn't make the airfield as the scope of the game changed from when it sta
 Collisions of 3d objects were quite hard even though I used simpler methods with only using spheres for enemies as such
 
 ## Unsolved Problems
-I didn't achieve a smoother collision system with the ground
+I didn't achieve a smoother collision system with the ground and a proper way to implement the airfield in a way that makes sense and I couldn't solve how to make the craft decelerate more smoothly while coming to a complete stop

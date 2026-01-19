@@ -20,7 +20,7 @@ Implemented = 🟢 not Implemented = 🔴
 - simple gun with ammo count: hitscan🟢
 
 ### 3: Enemy Base
-- Stationary air base 🟢
+- Stationary air base/sphere 🟢
 - 
 
 

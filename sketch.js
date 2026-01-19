@@ -36,7 +36,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(207,236,247);
 
 
   terrainUpdate(craft);

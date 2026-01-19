@@ -4,13 +4,14 @@ class aircraft {
     this.position = createVector(x, y, z);
     this.velocity = createVector(0, 0, 0);
     this.acceleration = createVector(0, 0, 0);
+    this.dVelocity = createVector(0,0,0);
     this.accelRate = 0;
 
     this.maxSpeed = 10;
     
     this.direction = createVector(0, 0, 1);
     
-    this.mass = 10;
+    this.mass = 1;
     this.shipWidth = 30;
     this.shipLength = 60;
     this.color = color(132,132,130);
@@ -44,15 +45,15 @@ class aircraft {
     //translates to position and then turns to camera direction by using the same values that setCam() uses
     
     push();
-    translate(this.position);
-    rotateY(radians(this.rY));
+    translate(this.position); //puts into position
+    rotateY(radians(this.rY)); //rotates to camera direction
     rotateX(-(radians(this.rX) + PI/2));
    
     push();
-    rotateY(PI);
+    rotateY(PI); //rotates to be in 'correct orientation'
     rotateX(PI/2);
     fill(this.color);
-    noStroke();
+
     cone(this.shipWidth, this.shipLength, 5);
     pop();
     pop();
@@ -60,30 +61,35 @@ class aircraft {
   
   move() {
     let heading = this.direction.copy(); 
-    //changes in heading is the same as change in acceleartion; when not acceleratiing the current velocity is saves
+    //changes in heading is the same as change in acceleration; when not acceleratiing the current velocity is saves
     //and then changes in acceleration is made with a dummy variable and then velocity is set to its previous mag
-    if (this.accelRate === 0) {
-      let currentVelocity = this.velocity.mag();
-      heading.setMag(1);
-      this.acceleration = heading;
-      this.velocity.add(this.acceleration);
-      this.velocity.setMag(currentVelocity);
-    }
-    else {
-      heading.setMag(this.accelRate);
-      
-      this.acceleration = heading;
-      this.velocity.add(this.acceleration);
-    }
+    //easier control version
+    // if (this.accelRate === 0) {
+    //   let currentVelocity = this.velocity.mag();
+    //   heading.setMag(1);
+    //   this.acceleration = heading;
+    //   this.velocity.add(this.acceleration);
+    //   this.velocity.setMag(currentVelocity);
+    // }
+    // else {
+    // }
+    //only changes heading when accelerating or decelerating: harde control version
+    heading.setMag(this.accelRate);
+    
+    this.acceleration = heading;
+    this.acceleration = p5.Vector.div(this.acceleration, this.mass);
+    this.velocity.add(this.acceleration);
     // checks when decelerating if the velocity's direction has changed from the camera direction and sets it to 0
     // solve decelerating too quick when turning
     if (this.accelRate < 0 &&
-      !(this.direction.angleBetween(this.velocity) < PI/2 && this.direction.angleBetween(this.velocity) > -PI/2)) {
-      this.velocity.set();
+       this.velocity.mag() > this.dVelocity.mag()) {
+      this.velocity.set(); //when uncommented abruptly comes to a stop, when commented just changes velocity to be backwards
+      this.accelRate = 0;
     }
 
     // limits velocity to a max speed and then updates position
     this.velocity.limit(this.maxSpeed);
+    this.dVelocity = p5.Vector.copy(this.velocity);
     this.position.add(this.velocity);
   }
   
@@ -128,21 +134,21 @@ class aircraft {
     // make a line and copy of current direction then apply transformation to move line in direction;
       let target = this.direction.copy();
 
-      let ray = {
+      let ray = { //ray info to be sent to each enemy
         origin: this.position,
         direction: target,
       };
       for (let enemy of enemies) { // checks every enemy if it is being hit 
         let hit = enemy.bulletCollision(ray);
 
-        if (hit) { 
+        if (hit) { //makes it damge per second which is 20dmg/s
           enemy.health -= this.DAMAGE/frameRate();
         }
         if (enemy.health <= 0) { //checks if enemy is dead and then gets rid of it
           enemyList.splice(enemyList.indexOf(enemy), 1);
         }
       }
-      target.setMag(this.LASERLENGTH);
+      target.setMag(this.LASERLENGTH); //the length of the lazer and adjusting it's position
       target.add(this.position.x, this.position.y, this.position.z);
       push();
       stroke('red'); //the visible laser
@@ -170,7 +176,7 @@ class aircraft {
       translate(100, 0,0); //distance from camera
       // sphere()
       push();
-      rotateY(-PI/2);
+      rotateY(-PI/2); //rotates to be facing 'correctly'
       rotateZ(PI);
       translate(-100, -50, 0);
       fill('black');
